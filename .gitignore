@@ -5,6 +5,7 @@
 __pycache__
 db.sqlite3
 media
+staticfiles/
 
 # Backup files # 
 *.bak 
@@ -53,7 +54,7 @@ atlassian-ide-plugin.xml
 .Python build/ 
 develop-eggs/ 
 dist/ 
-downloads/ 
+downloads/
 eggs/ 
 .eggs/ 
 lib/ 
