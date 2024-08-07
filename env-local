@@ -1,0 +1,10 @@
+DEBUG=1
+SECRET_KEY='secured-backend-secret-!)wu1z18&v6+r=z_eqvsspexsaaq*iuohpy3glq^xh$e3&k#bfp9f&'
+DJANGO_ALLOWED_HOSTS='localhost'
+DATABASE='postgres'
+SQL_ENGINE='django.db.backends.postgresql'
+SQL_DATABASE='backend'
+SQL_USER='postgres'
+SQL_PASSWORD='postgres'
+SQL_HOST='localhost'
+SQL_PORT='5432'

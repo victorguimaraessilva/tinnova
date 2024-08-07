@@ -1,0 +1,70 @@
+{
+    "producers": [
+        {
+            "document": "49807348048",
+            "producer_name": "Produtor 1",
+            "farm_name": "Fazenda 1",
+            "city": "Belo Horizonte",
+            "state": "MG",
+            "total_area": 100.0,
+            "arable_area": 75.0,
+            "vegetation_area": 25.0,
+            "cultures": [
+                1
+            ]
+        },
+        {
+            "document": "86278948095",
+            "producer_name": "Produtor 2",
+            "farm_name": "Fazenda 2",
+            "city": "Uberlândia",
+            "state": "MG",
+            "total_area": 150.0,
+            "arable_area": 50.0,
+            "vegetation_area": 100.0,
+            "cultures": [
+                1, 2, 4
+            ]
+        },
+        {
+            "document": "67925870010",
+            "producer_name": "Produtor 3",
+            "farm_name": "Fazenda 3",
+            "city": "São Paulo",
+            "state": "SP",
+            "total_area": 245.0,
+            "arable_area": 45.0,
+            "vegetation_area": 200.0,
+            "cultures": [
+               2, 3
+            ]
+        },
+        {
+            "document": "19870124020",
+            "producer_name": "Produtor 4",
+            "farm_name": "Fazenda 4",
+            "city": "São José dos Campos",
+            "state": "SP",
+            "total_area": 555.0,
+            "arable_area": 400.0,
+            "vegetation_area": 155.0,
+            "cultures": [
+                1, 2, 3
+            ]
+        },
+        {
+            "document": "03041445093",
+            "producer_name": "Produtor 5",
+            "farm_name": "Fazenda 5",
+            "city": "Florianópolis",
+            "state": "SC",
+            "total_area": 260.0,
+            "arable_area": 120.0,
+            "vegetation_area": 140.0,
+            "cultures": [
+                2, 3, 4
+            ]
+        }
+        
+    ]
+}

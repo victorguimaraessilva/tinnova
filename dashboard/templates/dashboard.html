@@ -1,0 +1,146 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="container-fluid">
+    <div class="row content">
+      <br>
+      <div class="col-sm-12">
+        <div class="well">
+          <h4>Dashboard</h4>
+          <p>Estatísticas relacionadas à produtores e culturas.</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="well">
+              <h4>Fazendas</h4>
+              <p>Total de Fazendas: {{totals.farms}}</p> 
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well">
+              <h4>Área </h4>
+              <p>Área das Fazendas: {{totals.farms_area}} hectares</p> 
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well">
+              <h4>Culturas</h4>
+              <p>Total de Culturas: {{totals.cultures}} culturas</p> 
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="well">
+              <h4>Fazendas x Estado</h4>
+              <canvas id="farmxstate"></canvas>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well">
+              <h4>Fazendas x Cultura </h4>
+              <canvas id="farmxculture"></canvas>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well">
+              <h4>Área agricultável X Vegetação</h4>
+              <canvas id="arablexvegetation"></canvas>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+
+  async function getData() {
+    try {
+      const response = await fetch(`${window.location.origin}/api/dashboard`);
+      
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  async function loadCharts(data) {
+
+    const farmxstate = document.getElementById('farmxstate');
+    const farmxculture = document.getElementById('farmxculture');
+    const arablexvegetation = document.getElementById('arablexvegetation');
+    
+    if (data) {
+
+      new Chart(farmxstate, {
+        type: 'pie',
+        data: {
+          labels: data.charts.farmxstate.map((farmxstate) => farmxstate.state),
+          datasets: [{
+            label: 'Fazendas',
+            data: data.charts.farmxstate.map((farmxstate) => farmxstate.total),
+          }]
+        },
+      });
+    
+      new Chart(farmxculture, {
+        type: 'pie',
+        data: {
+          labels: data.charts.farmxculture.map(
+            (farmxculture) => 
+              farmxculture.cultures__name ? 
+                farmxculture.cultures__name : 
+                'Não Informada'
+          ),
+          datasets: [{
+            label: 'Fazendas',
+            data: data.charts.farmxculture.map((farmxculture) => farmxculture.total),
+          }]
+        },
+      
+      });
+    
+      new Chart(arablexvegetation, {
+        type: 'pie',
+        data: {
+          labels: ['Agriculturável', 'Vegetação'],
+          datasets: [{
+            label: '# hectares',
+            data: [(data.totals.farms_arable / data.totals.farms_area) * 100, (data.totals.farms_vegetation / data.totals.farms_area) * 100],
+          }]
+        },
+      
+      });
+    }
+  }
+
+  async function start() {
+    const data = await getData()
+    await loadCharts(data)
+  }
+  
+  start()
+
+</script>
+</html>
+
+{% endblock %}
